@@ -14,6 +14,9 @@ class SequenceIterator:
         else:
             raise StopIteration()
 
-    def _iter__(self):
+    def __iter__(self):
         """by convention, an iterator must return itself as an iterator"""
         return self
+
+    def __len__(self):
+        return len(self._sequence)

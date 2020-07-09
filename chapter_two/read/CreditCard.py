@@ -54,13 +54,11 @@ class CreditCard:
 
 
 if __name__ == "__main__":
-    wallet = []
-    wallet.append((CreditCard('John Bowman', 'California Savings',
-                              '56 5391 0375 9387 5309', 2500)))
-    wallet.append((CreditCard('John Bowman', 'California Federal',
-                              '58 3485 0399 3395 1954', 3500)))
-    wallet.append((CreditCard('John Bowman', 'California Finance',
-                              '60 5391 0375 9387 5309', 5000)))
+    wallet = [(CreditCard('John Bowman', 'California Savings',
+                          '56 5391 0375 9387 5309', 2500)), (CreditCard('John Bowman', 'California Federal',
+                                                                        '58 3485 0399 3395 1954', 3500)),
+              (CreditCard('John Bowman', 'California Finance',
+                          '60 5391 0375 9387 5309', 5000))]
 
     for val in range(1, 17):
         wallet[0].charge(val)
@@ -79,8 +77,8 @@ if __name__ == "__main__":
         print()
 
 
-class PredatoryCrediCard(CreditCard):
-    """An extension to credit card that compunt interest and fees"""
+class PredatoryCreditCard(CreditCard):
+    """An extension to credit card that compound interest and fees"""
 
     def __init__(self, customer, bank, account, limit, apr):
         """Create a new predatory CreditCard instance 
@@ -91,7 +89,7 @@ class PredatoryCrediCard(CreditCard):
         bank        the name of the bank \n
         account     the account identifier \n
         limit       credit limit \n
-        apr         annaul percentage rate (0.0825 for 8.25% APR) """
+        apr         annual percentage rate (0.0825 for 8.25% APR) """
 
         super().__init__(customer, bank, account, limit)
         self._apr = apr
@@ -103,14 +101,14 @@ class PredatoryCrediCard(CreditCard):
         Return False and asses $5 fee if charge is denied
         """
 
-        success = super().charge(10)
+        success = super().charge(price)
         if not success:
             self._balance += 5
 
         return success
 
     def process_month(self):
-        """Asses monthlu interest on outstanding balance"""
+        """Asses monthly interest on outstanding balance"""
 
         if self._balance > 0:
             self._balance += (((self._apr / 12) / 100) * self._balance)
